@@ -1,0 +1,37 @@
+{
+  "name": "callosum-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Callosum — local Copilot-like assistant powered by Ollama",
+  "scripts": {
+    "build": "node build.js",
+    "clean": "rimraf dist",
+    "dev": "web-ext run --source-dir dist --start-url about:debugging#/runtime/this-firefox",
+    "lint": "web-ext lint --source-dir dist",
+    "zip": "web-ext build --overwrite-dest --source-dir dist --artifacts-dir artifacts",
+    "dev:rebuild": "npm run build && npm run dev"
+  },
+  "keywords": [
+    "browser-extension",
+    "ai",
+    "ollama",
+    "privacy",
+    "assistant"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "fs-extra": "^11.2.0",
+    "prettier": "^3.2.4",
+    "rimraf": "^6.0.1",
+    "web-ext": "^8.4.0"
+  },
+  "webExt": {
+    "sourceDir": "dist",
+    "artifactsDir": "artifacts",
+    "verbose": true
+  }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Callosum</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="popup">
+  <div class="container">
+    <header>
+      <h1>Callosum</h1>
+      <button id="settings-btn" class="icon-button" title="Settings">⚙️</button>
+    </header>
+    
+    <div class="quick-actions">
+      <button id="summarize-btn" class="action-button">
+        <span class="icon">📝</span>
+        <span>Summarize Page</span>
+      </button>
+      
+      <button id="ask-btn" class="action-button">
+        <span class="icon">💬</span>
+        <span>Ask Callosum</span>
+      </button>
+      
+      <button id="rewrite-btn" class="action-button">
+        <span class="icon">✍️</span>
+        <span>Rewrite Selection</span>
+      </button>
+      
+      <button id="draft-btn" class="action-button">
+        <span class="icon">📧</span>
+        <span>Draft Reply</span>
+      </button>
+    </div>
+    
+    <div class="chat-container hidden">
+      <div id="chat-messages" class="chat-messages"></div>
+      <div class="chat-input-container">
+        <textarea 
+          id="user-input" 
+          placeholder="Ask Callosum about this page..."
+          rows="3"
+        ></textarea>
+        <button id="send-btn" class="send-button" disabled>Send</button>
+      </div>
+    </div>
+    
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <span>Thinking...</span>
+    </div>
+    
+    <div id="error" class="error hidden"></div>
+  </div>
+  
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Callosum - Options</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      width: 600px;
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius);
+      font-size: 14px;
+    }
+    
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .slider {
+      flex: 1;
+      -webkit-appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      outline: none;
+    }
+    
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      cursor: pointer;
+    }
+    
+    .slider-value {
+      min-width: 30px;
+      text-align: right;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+    }
+    
+    .button-group button {
+      padding: 8px 16px;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+    }
+    
+    .save-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+    }
+    
+    .save-btn:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    .reset-btn {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+    }
+    
+    .reset-btn:hover {
+      background-color: #e9ecef;
+    }
+    
+    .status {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: var(--border-radius);
+      display: none;
+    }
+    
+    .status.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .status.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .checkbox-option input[type="checkbox"] {
+      margin-right: 10px;
+      width: auto;
+    }
+    
+    .section {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .section:last-child {
+      border-bottom: none;
+    }
+    
+    .section h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+    
+    .section p {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Callosum Settings</h1>
+      <p>Configure your local AI assistant powered by Ollama</p>
+    </header>
+    
+    <div class="section">
+      <h2>Ollama Connection</h2>
+      
+      <div class="form-group">
+        <label for="endpoint">Ollama Server URL</label>
+        <input type="text" id="endpoint" placeholder="http://127.0.0.1:11434">
+        <p class="help-text">The URL where your local Ollama server is running</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="model">Default Model</label>
+        <input type="text" id="model" placeholder="mistral">
+        <p class="help-text">The default model to use for generating responses</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="timeout">Request Timeout (seconds)</label>
+        <input type="number" id="timeout" min="10" max="300" value="30">
+        <p class="help-text">Maximum time to wait for a response from the Ollama server</p>
+      </div>
+      
+      <div class="form-group">
+        <label>Connection Status</label>
+        <div id="connection-status" style="color: #6c757d;">Checking connection...</div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>Generation Settings</h2>
+      
+      <div class="form-group">
+        <label for="temperature">Temperature: <span id="temperature-value">0.7</span></label>
+        <div class="slider-container">
+          <input type="range" id="temperature" min="0" max="2" step="0.1" value="0.7" class="slider">
+          <span class="slider-value" id="temperature-display">0.7</span>
+        </div>
+        <p class="help-text">Higher values make output more random, lower values make it more focused and deterministic</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="max-tokens">Max Tokens: <span id="max-tokens-value">1000</span></label>
+        <div class="slider-container">
+          <input type="range" id="max-tokens" min="100" max="4000" step="100" value="1000" class="slider">
+          <span class="slider-value" id="max-tokens-display">1000</span>
+        </div>
+        <p class="help-text">Maximum number of tokens to generate in each response</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="max-context">Max Context Length: <span id="max-context-value">10000</span> characters</label>
+        <div class="slider-container">
+          <input type="range" id="max-context" min="1000" max="20000" step="500" value="10000" class="slider">
+          <span class="slider-value" id="max-context-display">10000</span>
+        </div>
+        <p class="help-text">Maximum number of characters to include from the page context</p>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>Interface Settings</h2>
+      
+      <div class="form-group">
+        <div class="checkbox-option">
+          <input type="checkbox" id="auto-open-sidebar" checked>
+          <label for="auto-open-sidebar">Auto-open sidebar when clicking toolbar icon</label>
+        </div>
+        
+        <div class="checkbox-option">
+          <input type="checkbox" id="include-page-context" checked>
+          <label for="include-page-context">Include page context in chat by default</label>
+        </div>
+        
+        <div class="checkbox-option">
+          <input type="checkbox" id="enable-notifications" checked>
+          <label for="enable-notifications">Show desktop notifications</label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="status" id="status-message"></div>
+    
+    <div class="button-group">
+      <button id="save-btn" class="save-btn">Save Settings</button>
+      <button id="reset-btn" class="reset-btn">Reset to Defaults</button>
+    </div>
+    
+    <div class="section" style="margin-top: 40px; font-size: 0.8rem; color: var(--text-secondary);">
+      <p><strong>Note:</strong> All data is processed locally on your device. No information is sent to external servers except your configured Ollama instance.</p>
+    </div>
+  </div>
+  
+  <script src="options.js" type="module"></script>
+</body>
+</html>
